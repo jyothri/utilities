@@ -4,7 +4,7 @@ import sys
 import csv
 import re
 
-def parse_file(file_path, output_file=sys.stdout):
+def parse_sms_file(file_path, output_file=sys.stdout):
     print(f"Starting parse of file for SMS {file_path}")
     ph_nos=[]
     with open(file_path, newline='') as csvfile:
@@ -35,7 +35,15 @@ def parse_phone_file(file_path, output_file=sys.stdout):
           print(x, y)
 
 if __name__ == "__main__":
-  if len(sys.argv)==2:
-      parse_file(sys.argv[1])
-  else:
-      parse_phone_file(sys.argv[1]);
+    if len(sys.argv) != 3:
+        print("######## USAGE #######")
+        print("./parse_csv_phones.py <file_name> phone|sms")
+        sys.exit(2)
+    if (sys.argv[2]=='sms'):
+        parse_sms_file(sys.argv[1])
+        sys.exit(0)
+    elif (sys.argv[2]=='phone'):
+        parse_phone_file(sys.argv[1])
+        sys.exit(0)
+    else:
+        print("Invalid arg. Use either phone or sms")
